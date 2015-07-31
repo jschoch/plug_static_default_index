@@ -102,14 +102,14 @@ defmodule Plug.StaticDefaultIndexTest do
   end
 
   test "returns 400 for unsafe paths" do
-    exception = assert_raise Plug.StaticDefaultIndex.InvalidPathError,
+    exception = assert_raise Plug.Static.InvalidPathError,
                              "invalid path for static asset", fn ->
       conn(:get, "/public/fixtures/../fixtures/static/file.txt") |> call
     end
 
     assert Plug.Exception.status(exception) == 400
 
-    exception = assert_raise Plug.StaticDefaultIndex.InvalidPathError,
+    exception = assert_raise Plug.Static.InvalidPathError,
                              "invalid path for static asset", fn ->
       conn(:get, "/public/c:\\foo.txt") |> call
     end
@@ -122,7 +122,7 @@ defmodule Plug.StaticDefaultIndexTest do
            |> put_req_header("accept-encoding", "gzip")
            |> call
     assert conn.status == 200
-    assert conn.resp_body == "HELLO"
+    assert conn.resp_body == "GZIPPED HELLO"
     assert get_resp_header(conn, "content-encoding") == ["gzip"]
     assert get_resp_header(conn, "vary") == ["Accept-Encoding"]
 
@@ -131,7 +131,7 @@ defmodule Plug.StaticDefaultIndexTest do
            |> put_resp_header("vary", "Whatever")
            |> call
     assert conn.status == 200
-    assert conn.resp_body == "HELLO"
+    assert conn.resp_body == "GZIPPED HELLO"
     assert get_resp_header(conn, "content-encoding") == ["gzip"]
     assert get_resp_header(conn, "vary") == ["Accept-Encoding", "Whatever"]
   end
