@@ -1,7 +1,7 @@
 PlugStaticDefaultIndex
 ======================
 
-** this is pretty much the same as Plug.Static but takes one additional option called defaultIndex, this defaults to  **
+** turn get "/foo" into get "/foo/index.html" automagically  **
 
 this is pretty much the same as Plug.Static but takes one additional option called defaultIndex, this defaults to "index.html" but you can set it via:
 
