@@ -9,11 +9,11 @@ this is pretty much the same as Plug.Static but takes one additional option call
 
 defmodule MyPlug do
   use Plug.Builder
-  plug Plug.StaticDefaultIndex, at: "/public", from: :my_app, defaultIndex: "whyIsntIndex.htmlNotGoodEnough"
-  plug :not_found
-  def not_found(conn, _) do
-    send_resp(conn, 404, "not found")
-  end
+  plug Plug.StaticDefaultIndex, 
+    at: "/public", 
+    from: :my_app, 
+    defaultIndex: "whyIsntIndex.htmlNotGoodEnough"
+    
 end
 
 ```
